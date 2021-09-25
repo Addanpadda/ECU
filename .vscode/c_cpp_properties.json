@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/share/arduino/hardware/archlinux-arduino/avr/cores/arduino/",
+                "/usr/share/arduino/hardware/archlinux-arduino/avr/libraries/EEPROM/",
+                "/usr/share/arduino/hardware/archlinux-arduino/avr/libraries/SPI/",
+                "/usr/share/arduino/hardware/archlinux-arduino/avr/libraries/SoftwareSerial/",
+                "/usr/share/arduino/hardware/archlinux-arduino/avr/libraries/Wire/"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
