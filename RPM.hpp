@@ -1,6 +1,8 @@
+#ifndef RPM_H
+#define RPM_H
+
 #include <Arduino.h>
 #define RPM_PIN 2
-
 
 class RPM {
 private:
@@ -36,3 +38,5 @@ public:
   RPM();
   static void calcRPM();
 };
+
+#endif

@@ -1,15 +1,17 @@
 #include <Arduino.h>
 #include "MAF.hpp"
+#include "Constants.hpp"
 
 int MAF::get() {
-  int voltage = (analogRead(MAF_PIN)/1023)*5;
+  double voltage = (analogRead(MAF_PIN)/1023)*5;
 
   return mapValue(voltage);
 }
 
-int MAF::mapValue(int voltage) {
-  double voltageValues[] = {2.0, 2.1};
-  int    MAFValues[]     = {200, 200};
+unsigned int MAF::mapValue(float voltage) {
+  const int lowerIndex = (int)(voltage*Constants::MAF::valuesPerVolt);
+  const int upperIndex = lowerIndex+1;
+  const float offsetFromLower = (voltage*(float)Constants::MAF::valuesPerVolt) - (int)(voltage*(float)Constants::MAF::valuesPerVolt);
 
-  
+  return Constants::MAF::Values[lowerIndex] * (1-offsetFromLower) + Constants::MAF::Values[upperIndex] * offsetFromLower;
 }
