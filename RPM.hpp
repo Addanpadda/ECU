@@ -2,7 +2,8 @@
 #define RPM_H
 
 #include <Arduino.h>
-#define RPM_PIN 2
+#include "Settings.hpp"
+#define RPM_PIN Settings::Pins::RPM
 
 class RPM {
 private:

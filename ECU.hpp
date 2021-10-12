@@ -3,12 +3,16 @@
 
 #include <Arduino.h>
 #include "RPM.hpp"
-//#include "MAF.hpp"
+#include "MAF.hpp"
+#include "FuelInjector.hpp"
+#include "Spark.hpp"
 
 class ECU {
 private:
   RPM* rpm;
-//  MAF* maf;
+  MAF* maf;
+  FuelInjector* fuelInjector;
+  Spark * spark;
 
 public:
   ECU();

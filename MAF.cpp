@@ -1,9 +1,14 @@
 #include <Arduino.h>
 #include "MAF.hpp"
 #include "Constants.hpp"
+#include "Settings.hpp"
+
+MAF::MAF(int pin) {
+  _pin = pin;
+}
 
 int MAF::get() {
-  double voltage = (analogRead(MAF_PIN)/1023)*5;
+  double voltage = (analogRead(_pin)/1023.0)*5.0;
 
   return mapValue(voltage);
 }
