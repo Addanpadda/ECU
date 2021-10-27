@@ -3,7 +3,7 @@
 #include "Settings.hpp"
 
 ECU::ECU() {
-  Serial.begin(9600);
+  //Serial.begin(2000000);
   Settings::apply();
   
   rpm = new RPM();
@@ -28,7 +28,11 @@ void ECU::loop() {
 
   //airFuelRatio = airGramsPerMinute / (Constants::Engine::injectorGramsPerMinute * Constants::Engine::numberOfCylinders * openFactor);
 
-  float openFactor = airGramsPerMinute / (Constants::Engine::injectorGramsPerMinute * Constants::Engine::numberOfCylinders * airFuelRatio);
+  float openFactor;
+  if (averageRpm == 0) openFactor = 0;
+  else if (averageRpm > 20000) openFactor = .012*airFlow;
+  else openFactor = (airGramsPerMinute / (Constants::Engine::injectorGramsPerMinute * Constants::Engine::numberOfCylinders * airFuelRatio))*3;
+  /*
   Serial.print("Open: ");
   Serial.print(openFactor*255);
   Serial.print("\tMAF: ");
@@ -37,6 +41,8 @@ void ECU::loop() {
   Serial.print(airFlow);
   Serial.print("KG/H\tRPM: ");
   Serial.println(averageRpm);
+  */
 
+  
   fuelInjector->SetOpenTime(openFactor);
 }
