@@ -7,7 +7,8 @@ private:
   
 public:
   FuelInjector(int pin);
-  void SetOpenTime(float openTime);
+  void SetOpenTime(float openFactor);
+  static float calculateOpenFactor(int rpm, float airFlow, float airFuelRatio);
 };
 
 #endif

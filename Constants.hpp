@@ -27,6 +27,7 @@ namespace Constants {
   namespace Engine {
     const unsigned short numberOfCylinders = 4;
     const float injectorGramsPerMinute = 153.8f;
+    const int totalVolume = 2316; // cm3
   }
 };
 
