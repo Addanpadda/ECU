@@ -4,7 +4,7 @@
 namespace Constants {
   namespace MAF {
     // MAF constants
-    const unsigned int valuesPerVolt = 28; // Spacing
+    //const unsigned int valuesPerVolt = 28; // Spacing
     /*
     Original values derived from graph
     const int Values[] = {
@@ -14,7 +14,7 @@ namespace Constants {
       119, 125, 125, 131, 138, 138, 144, 150, 150, 156, 156, 163, 169, 169, 175, 181, 188, 194, 200, 206, 213, 219, 225, 231, 238, 238, 244, 250, // 3-4 Volt
       256, 263, 269, 275, 281, 288, 294, 300, 306, 313, 319, 325, 331, 338, 344, 350, 356, 363, 369, 375, 381, 381, 388, 394, 400, 406, 413, 419, // 4-5 Volt
     };
-    */
+    
     // Regressed values
     const int Values[] = {
       0, 3, 6, 6, 6, 6, 6, 6, 6, 7, 8, 9, 10, 11, 12, 13, 13, 13, 13, 14, 15, 16, 17, 18, 19, 19, 19, 19, // 0-1 Volt
@@ -23,6 +23,10 @@ namespace Constants {
       122, 125, 128, 131, 135, 139, 144, 150, 153, 156, 160, 163, 169, 172, 175, 181, 188, 194, 200, 206, 213, 219, 225, 231, 238, 238, 244, 250, // 3-4 Volt
       256, 263, 269, 275, 281, 288, 294, 300, 306, 313, 319, 325, 331, 338, 344, 350, 356, 363, 369, 375, 381, 381, 388, 394, 400, 406, 413, 419, // 4-5 Volt
     };
+    */
+    const float voltageValues[] = {2.3669, 2.6619, 3.0091, 3.4416, 3.8445, 3.9838, 4.2242, 4.4849, 4.7735};
+    const int   airFlowValues[] = {15,     30,     60,     120,    190,    220,    280,    370,    480};
+    const unsigned int size = sizeof(voltageValues)/sizeof(float);
   }
   namespace Engine {
     const unsigned short numberOfCylinders = 4;

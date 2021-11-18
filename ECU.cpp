@@ -23,8 +23,8 @@ void ECU::loop() {
   const unsigned int averageRpm = rpm->average;
   const unsigned int airFlow = maf->get();
   const float loadAbs = calculateLoad(averageRpm, airFlow);
-  const float airFuelRatio = calculateAFR(averageRpm, loadAbs*100); //13.7f;
-  const float openFactor = FuelInjector::calculateOpenFactor(averageRpm, airFlow, airFuelRatio);
+  const float airFuelRatio = calculateAFR(averageRpm, (int)loadAbs*100); //13.7f;
+  const float openFactor = FuelInjector::calculateOpenFactor(averageRpm, airFlow, airFuelRatio)*3;
 
   fuelInjector->SetOpenTime(openFactor);
   
@@ -47,15 +47,31 @@ static float ECU::calculateLoad(int rpm, int airFlow) {
   float airMass = airFlow * 1000.0 / 60.0 / rpm / (Constants::Engine::numberOfCylinders/2.0); // Divided by two because every two revs, all cylinders take in air.
   float loadAbs = airMass / (1.184 * Constants::Engine::totalVolume / 1000);
 
-  return loadAbs;
+  return abs(loadAbs);
 }
 
-static float ECU::calculateAFR(int rpm, int load) {
-  // Finding the table position in the lookups
+static float ECU::calculateAFR(unsigned int rpm, unsigned int load) {
+  /*
+  // Finding the table position in the lookup
   int loadIndex = 0;
   while (loadIndex < Tuning::YLength && load >= Tuning::loadLookup[loadIndex+1]) loadIndex++;
   int rpmIndex = 0;
   while (rpmIndex < Tuning::XLength && rpm >= Tuning::RPMLookup[rpmIndex+1]) rpmIndex++;
+  */
+  int loadIndex = 0, rpmIndex = 0;
+
+  if (load < Tuning::loadLookup[0]) load = Tuning::loadLookup[0];
+  if (load > Tuning::loadLookup[Tuning::YLength - 1]) {
+        load = Tuning::loadLookup[Tuning::YLength - 1];
+        loadIndex = Tuning::YLength - 1;
+  } else while (loadIndex < Tuning::YLength && load >= Tuning::loadLookup[loadIndex+1]) loadIndex++;
+  if (rpm < Tuning::RPMLookup[0]) rpm = Tuning::RPMLookup[0];
+  if (rpm > Tuning::RPMLookup[Tuning::XLength- 1]) {
+        rpm = Tuning::RPMLookup[Tuning::XLength - 1];
+        rpmIndex = Tuning::XLength - 1;
+  } else while (rpmIndex < Tuning::XLength && rpm >= Tuning::RPMLookup[rpmIndex+1]) rpmIndex++;
+
+
   
   // Getting the AFRTable indexes
   int xIndex = rpmIndex;

@@ -14,7 +14,7 @@ private:
   FuelInjector* fuelInjector;
   Spark * spark;
 
-  static float calculateAFR(int rpm, int load);
+  static float calculateAFR(unsigned int rpm, unsigned int load);
   static float calculateLoad(int rpm, int airFlow);
 
 public:
