@@ -9,10 +9,11 @@
 
 class ECU {
 private:
-  RPM* rpm;
-  MAF* maf;
+  RPM *rpm;
+  MAF *maf;
   FuelInjector* fuelInjector;
-  Spark * spark;
+  Spark *spark;
+  Table<unsigned int, unsigned int, float> *AFRTable;
 
   static float calculateAFR(unsigned int rpm, unsigned int load);
   static float calculateLoad(int rpm, int airFlow);

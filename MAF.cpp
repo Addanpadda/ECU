@@ -23,5 +23,6 @@ unsigned int MAF::mapValue(float voltage) {
 
   return Constants::MAF::Values[lowerIndex] * (1-offsetFromLower) + Constants::MAF::Values[upperIndex] * offsetFromLower;
   */
-  return 23.1*pow(2.19, voltage);
+  //return 23.1*pow(2.19, voltage);
+  return graph->getY(voltage);
 }

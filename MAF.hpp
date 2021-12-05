@@ -7,7 +7,7 @@ class MAF {
 private:
   unsigned int mapValue(float voltage);
   int _pin;
-  Graph<float, int> *graph;// = Graph<float, int>(Constants::MAF::voltageValues, Constants::MAF::airFlowValues, Constants::MAF::size);
+  Graph<float, int> *graph;
 
 public:
   MAF(int pin);

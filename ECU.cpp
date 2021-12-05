@@ -3,6 +3,8 @@
 #include "Settings.hpp"
 #include "Tuning.hpp"
 
+#include "Utils.hpp"
+
 ECU::ECU() {
   Serial.begin(2000000);
   Settings::apply();
@@ -13,6 +15,7 @@ ECU::ECU() {
   spark = new Spark(Settings::Pins::SPARK_ADVANCE);
   
   spark->SetAdvance();
+  AFRTable = new Table<unsigned int, unsigned int, float>(Tuning::RPMLookup, Tuning::XLength, Tuning::loadLookup, Tuning::YLength, (float*)Tuning::AFRTable);
 
   delay(1000);
 }
@@ -23,7 +26,7 @@ void ECU::loop() {
   const unsigned int averageRpm = rpm->average;
   const unsigned int airFlow = maf->get();
   const float loadAbs = calculateLoad(averageRpm, airFlow);
-  const float airFuelRatio = calculateAFR(averageRpm, (int)loadAbs*100); //13.7f;
+  const float airFuelRatio = AFRTable->getZ(averageRpm, loadAbs*100); //calculateAFR(averageRpm, (int)loadAbs*100); //13.7f;
   const float openFactor = FuelInjector::calculateOpenFactor(averageRpm, airFlow, airFuelRatio)*3;
 
   fuelInjector->SetOpenTime(openFactor);
