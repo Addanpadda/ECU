@@ -46,6 +46,8 @@ void ECU::loop() {
 }
 
 static float ECU::calculateLoad(int rpm, int airFlow) {
+  if (rpm == 0) return 0.0f;
+  
   // LOAD_ABS = [air mass (g / intake stroke)] / [1.184 (g / intake stroke) * cylinder displacement in liters]
   float airMass = airFlow * 1000.0 / 60.0 / rpm / (Constants::Engine::numberOfCylinders/2.0); // Divided by two because every two revs, all cylinders take in air.
   float loadAbs = airMass / (1.184 * Constants::Engine::totalVolume / 1000);
