@@ -1,0 +1,23 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile",
+            "type": "shell",
+            "command": "arduino-cli compile -b arduino:avr:uno /home/adam/Arduino/ECU",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Upload",
+            "type": "shell",
+            "command": "arduino-cli upload -b arduino:avr:uno -p /dev/ttyACM3 /home/adam/Arduino/ECU",
+            "problemMatcher": []
+        }
+    ]
+}

@@ -7,6 +7,7 @@ namespace Settings {
     const unsigned int MAF = A0;
     const unsigned int RPM = 2;
     const unsigned int SPARK_ADVANCE = 3;
+    const unsigned int AIR_IDLE_CONTROL_VALVE = 5;
     const unsigned int INJECTOR = 11;
   }
   void apply();

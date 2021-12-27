@@ -1,13 +1,11 @@
 #ifndef FUELINJECTOR_H
 #define FUELINJECTOR_H
+#include "Transistor.hpp"
 
-class FuelInjector {
-private:
-  int _pin;
-  
+class FuelInjector: public Transistor  {
+  using Transistor::Transistor;
+
 public:
-  FuelInjector(int pin);
-  void SetOpenTime(float openFactor);
   static float calculateOpenFactor(int rpm, float airFlow, float airFuelRatio);
 };
 

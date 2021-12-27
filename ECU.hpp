@@ -6,16 +6,17 @@
 #include "MAF.hpp"
 #include "FuelInjector.hpp"
 #include "Spark.hpp"
+#include "Transistor.hpp"
 
 class ECU {
 private:
   RPM *rpm;
   MAF *maf;
-  FuelInjector* fuelInjector;
+  FuelInjector *fuelInjector;
   Spark *spark;
+  Transistor *idleAirControlValve;
   Table<unsigned int, unsigned int, float> *AFRTable;
 
-  static float calculateAFR(unsigned int rpm, unsigned int load);
   static float calculateLoad(int rpm, int airFlow);
 
 public:
