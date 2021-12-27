@@ -10,9 +10,9 @@ private:
     Tz *table;
 
 
-    Tz getTableValue(int i1, int i2) {
-        return (&table)[0][i2 + i1 * YLength];
-    }
+	Tz getTableValue(int i1, int i2) {
+		return (&table)[0][i2 + i1 * YLength];
+	}
 
 public:
     Table(Tx *lookupX, int XLength, Ty *lookupY, int YLength, Tz *table) {

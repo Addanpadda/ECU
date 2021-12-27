@@ -25,9 +25,10 @@ void ECU::loop() {
   
   const unsigned int averageRpm = rpm->average;
   const unsigned int airFlow = maf->get();
+  
   const float loadAbs = calculateLoad(averageRpm, airFlow);
   const float airFuelRatio = AFRTable->getZ(averageRpm, loadAbs*100); //calculateAFR(averageRpm, (int)loadAbs*100); //13.7f;
-  const float openFactor = FuelInjector::calculateOpenFactor(averageRpm, airFlow, airFuelRatio)*3;
+  const float openFactor = FuelInjector::calculateOpenFactor(averageRpm, airFlow, airFuelRatio);
 
   fuelInjector->SetOpenTime(openFactor);
   

@@ -76,9 +76,7 @@ int main(int argc, char **argv) {
 
     Graph<float, int> *graph;
     graph = new Graph<float, int>(x, y, size);
-    std::cout << graph->getY(2.0f) << std::endl;
-    std::cout << graph->getY(3.0f) << std::endl;
-    std::cout << graph->getY(4.0f) << std::endl;
+    std::cout << graph->getY(2.45f) << std::endl;
 
 
     return 0;
