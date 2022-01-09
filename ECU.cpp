@@ -6,7 +6,7 @@
 #include "Utils.hpp"
 
 ECU::ECU() {
-  Serial.begin(2000000);
+  //Serial.begin(2000000);
   Settings::apply();
   
   rpm = new RPM();
@@ -28,11 +28,12 @@ void ECU::loop() {
   const unsigned int airFlow = maf->get();
   
   const float loadAbs = calculateLoad(averageRpm, airFlow);
-  const float airFuelRatio = AFRTable->getZ(averageRpm, loadAbs*100);
+  const float airFuelRatio = AFRTable->getZ(averageRpm, (int)(loadAbs*100));
   const float openFactor = FuelInjector::calculateOpenFactor(averageRpm, airFlow, airFuelRatio);
 
   fuelInjector->setOpenFactor(openFactor);
   
+  /*
   Serial.print("Open: ");
   Serial.print(openFactor*255);
   Serial.print("\tMAF: ");
@@ -45,17 +46,10 @@ void ECU::loop() {
   Serial.print(loadAbs);
   Serial.print("\tAFR: ");
   Serial.println(airFuelRatio);
+  */
 
-
-  int goal = 240;
-  int start = 242;
-
-  if (averageRpm > 0 && averageRpm < 6000) {
-    if (idleAirControlValve->currentPWM != goal) {
-      idleAirControlValve->setOpen(idleAirControlValve->currentPWM-1);
-    }
-  }
-  else idleAirControlValve->setOpen(start);
+  if (averageRpm > 0 && averageRpm < 6000) idleAirControlValve->setOpen(240);
+  else idleAirControlValve->setOpen(242);
 }
 
 static float ECU::calculateLoad(int rpm, int airFlow) {
