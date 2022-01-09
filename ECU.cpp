@@ -13,10 +13,9 @@ ECU::ECU() {
   maf = new MAF(Settings::Pins::MAF);
   fuelInjector = new FuelInjector(Settings::Pins::INJECTOR);
   spark = new Spark(Settings::Pins::SPARK_ADVANCE);
-  //idleAirControlValve = new Transistor(Settings::Pins::AIR_IDLE_CONTROL_VALVE);
+  idleAirControlValve = new Transistor(Settings::Pins::AIR_IDLE_CONTROL_VALVE);
   
   spark->SetAdvance();
-  //idleAirControlValve->setOpenFactor(0.0);
   AFRTable = new Table<unsigned int, unsigned int, float>(Tuning::RPMLookup, Tuning::XLength, Tuning::loadLookup, Tuning::YLength, (float*)Tuning::AFRTable);
 
   delay(1000);
@@ -45,7 +44,18 @@ void ECU::loop() {
   Serial.print("\tLOAD: ");
   Serial.print(loadAbs);
   Serial.print("\tAFR: ");
-  Serial.println(airFuelRatio);  
+  Serial.println(airFuelRatio);
+
+
+  int goal = 240;
+  int start = 242;
+
+  if (averageRpm > 0 && averageRpm < 6000) {
+    if (idleAirControlValve->currentPWM != goal) {
+      idleAirControlValve->setOpen(idleAirControlValve->currentPWM-1);
+    }
+  }
+  else idleAirControlValve->setOpen(start);
 }
 
 static float ECU::calculateLoad(int rpm, int airFlow) {

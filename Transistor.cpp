@@ -7,5 +7,10 @@ Transistor::Transistor(const unsigned int &pin) {
 }
 
 void Transistor::setOpenFactor(const float &openFactor) {
-    analogWrite(this->_pin, (int)(255.0*openFactor+0.5));
+    this->setOpen((int)(255.0*openFactor+0.5));
+}
+
+void Transistor::setOpen(const int &pwm) {
+    this->currentPWM = pwm;
+    analogWrite(this->_pin, this->currentPWM);
 }

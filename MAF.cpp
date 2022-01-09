@@ -11,6 +11,8 @@ MAF::MAF(int pin) {
 
 int MAF::get() {
   double voltage = (analogRead(_pin)/1023.0)*5.0;
+  voltage += (analogRead(_pin)/1023.0)*5.0;
+  voltage /= 2; // Average voltage
 
   return mapValue(voltage);
 }

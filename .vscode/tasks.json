@@ -16,7 +16,7 @@
         {
             "label": "Upload",
             "type": "shell",
-            "command": "arduino-cli upload -b arduino:avr:uno -p /dev/ttyACM3 /home/adam/Arduino/ECU",
+            "command": "arduino-cli compile -b arduino:avr:uno /home/adam/Arduino/ECU && arduino-cli upload -b arduino:avr:uno -p /dev/$(sudo dmesg | grep Arduino -A 2 | grep 'USB' | tail -n 1 | cut -f3 -d: | sed 's/ //g') /home/adam/Arduino/ECU",
             "problemMatcher": []
         }
     ]

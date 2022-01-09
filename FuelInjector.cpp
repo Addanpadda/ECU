@@ -6,8 +6,9 @@ static float FuelInjector::calculateOpenFactor(int rpm, float airFlow, float air
   float openFactor;
   float airGramsPerMinute = airFlow * 1000.0/60.0;
 
-  if (rpm == 0) openFactor = 0;
-  else if (rpm > 8000) openFactor = .012*airFlow*3.4; // .01 - .012 ; If rpm is extremely high, noise is present and engine is starting.
+  if (rpm == 0 && airFlow == 7) openFactor = 0;
+  //else if (rpm > 500 && rpm < 1200) openFactor = 0.706;
+  else if (rpm > 20000) openFactor = .012*airFlow*3.4; // .01 - .012 ; If rpm is extremely high, noise is present and engine is starting.8
   //airFuelRatio = airGramsPerMinute / (Constants::Engine::injectorGramsPerMinute * Constants::Engine::numberOfCylinders * openFactor);
   else openFactor = (airGramsPerMinute / (Constants::Engine::injectorGramsPerMinute * Constants::Engine::numberOfCylinders * airFuelRatio))*3.0*3.4;
 
